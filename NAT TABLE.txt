@@ -1,0 +1,96 @@
+﻿Enter configuration commands, one per line. End with CNTL/Z.
+MAINRTR(config)#no ip nat inside source list 1 interface g0/1 overload
+MAINRTR(config)#no access-list 1
+MAINRTR(config)#do write
+Building configuration...
+[OK]
+MAINRTR(config)#access-list 1 permit 10.10.0.0 0.0.1.255
+MAINRTR(config)#
+MAINRTR(config)#ip nat inside source list 1 interface g0/1 overload
+MAINRTR(config)#access-list 1 permit 10.10.0.0 0.0.1.255
+MAINRTR(config)#
+MAINRTR(config)#ip nat inside source list 1 interface g0/1 overload
+MAINRTR(config)#interface g0/0
+MAINRTR(config-if)#ip nat inside
+MAINRTR(config-if)#
+MAINRTR(config-if)#interface g0/1
+MAINRTR(config-if)#ip nat outside
+MAINRTR(config-if)#clear ip nat translation *
+
+
+        
+MAINRTR#en
+MAINRTR#conf t
+Enter configuration commands, one per line. End with CNTL/Z.
+MAINRTR(config)#sh run int g0/1
+^
+% Invalid input detected at '^' marker.
+        
+MAINRTR(config)#end
+MAINRTR#
+%SYS-5-CONFIG_I: Configured from console by console
+MAINRTR#sh run config
+^
+% Invalid input detected at '^' marker.
+        
+MAINRTR#sh ip int br
+Interface IP-Address OK? Method Status Protocol
+GigabitEthernet0/0 unassigned YES unset up up
+GigabitEthernet0/0.10 10.10.0.1 YES manual up up
+GigabitEthernet0/0.20 10.10.0.129 YES manual up up
+GigabitEthernet0/0.30 10.10.1.1 YES manual up up
+GigabitEthernet0/1 200.10.10.2 YES manual up up
+GigabitEthernet0/2 unassigned YES unset administratively down down
+Vlan1 unassigned YES unset administratively down down
+MAINRTR#en
+MAINRTR#conf t
+Enter configuration commands, one per line. End with CNTL/Z.
+MAINRTR(config)#
+MAINRTR(config)#interface g0/0.10
+MAINRTR(config-subif)#ip nat inside
+MAINRTR(config-subif)#
+MAINRTR(config-subif)#interface g0/0.20
+MAINRTR(config-subif)#ip nat inside
+MAINRTR(config-subif)#
+MAINRTR(config-subif)#interface g0/0.30
+MAINRTR(config-subif)#ip nat inside
+MAINRTR(config-subif)#do write
+Building configuration...
+[OK]
+MAINRTR(config-subif)#
+MAINRTR(config-subif)#exit
+MAINRTR(config)#
+MAINRTR(config)#exit
+MAINRTR#
+%SYS-5-CONFIG_I: Configured from console by console
+MAINRTR#en
+MAINRTR#no ip nat inside source list 1 interface g0/1 overload
+^
+% Invalid input detected at '^' marker.
+        
+MAINRTR#ip nat inside source list 1 interface g0/1 overload
+^
+% Invalid input detected at '^' marker.
+        
+MAINRTR#en
+MAINRTR#conf t
+Enter configuration commands, one per line. End with CNTL/Z.
+MAINRTR(config)#no ip nat inside source list 1 interface g0/1 overload
+MAINRTR(config)#ip nat inside source list 1 interface g0/1 overload
+MAINRTR(config)#end
+MAINRTR#
+%SYS-5-CONFIG_I: Configured from console by console
+MAINRTR#clear ip nat translation
+% Incomplete command.
+MAINRTR#en
+MAINRTR#conf t
+Enter configuration commands, one per line. End with CNTL/Z.
+        
+MAINRTR#sh ip nat translations
+Pro Inside global Inside local Outside local Outside global
+icmp 200.10.10.2:29 10.10.0.10:29 200.10.10.1:29 200.10.10.1:29
+icmp 200.10.10.2:30 10.10.0.10:30 200.10.10.1:30 200.10.10.1:30
+icmp 200.10.10.2:31 10.10.0.10:31 200.10.10.1:31 200.10.10.1:31
+icmp 200.10.10.2:32 10.10.0.10:32 200.10.10.1:32 200.10.10.1:32
+MAINRTR#
+MAINRTR con0 is now available
