@@ -15,7 +15,7 @@ MAINRTR(config-if)#ip nat inside
 MAINRTR(config-if)#
 MAINRTR(config-if)#interface g0/1
 MAINRTR(config-if)#ip nat outside
-MAINRTR(config-if)#clear ip nat translation *
+MAINRTR(config-if)#clear ip nat translation 
 
 
         
